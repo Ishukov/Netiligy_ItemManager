@@ -9,6 +9,15 @@ public class ProductRepositoryTest {
     Product smartphone2 = new Smartphone(22, "smartphone2", 5000, "brand2");
 
     @Test
+    public void shouldEmptyRepository(){
+        ProductRepository repository = new ProductRepository();
+
+        Product[] expected = new Product[0];
+        Product[] actual = repository.allProduct();
+
+        Assertions.assertArrayEquals(expected,actual);
+    }
+    @Test
     public void shouldAddProduct() {
         ProductRepository repository = new ProductRepository();
         repository.addProduct(book1);
