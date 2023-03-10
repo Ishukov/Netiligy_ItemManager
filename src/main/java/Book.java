@@ -1,4 +1,3 @@
-
 public class Book extends Product {
     protected String author;
 
@@ -6,13 +5,19 @@ public class Book extends Product {
         super(id, name, price);
         this.author = author;
     }
+
     @Override
-    public String toString() {
-        return "Book{" +
-                "author='" + author + '\'' +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+    public boolean matches(String search) {
+        if (super.matches(search)) {
+            return true;
+        }
+        if (getAuthor().contains(search)) {
+            return true;
+        }
+        return false;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 }

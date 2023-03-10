@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class ProductManager {
     private ProductRepository repository;
 
@@ -15,21 +11,24 @@ public class ProductManager {
     }
 
     public Product[] searchBy(String text) {
-        Product[] result = new Product[1];
+        Product[] result = new Product[0];
         int index = 0;
         for (Product product : repository.allProduct()) {
-            if (matches(product, text)) {
-                result[index] = product;
-                index++;
+            if (product.matches(text)) {
+                Product[] tmp = new Product[result.length + 1];
+                if (result.length == 0) {
+                    tmp[index] = product;
+                } else {
+                    for (int i = 0; i < tmp.length - 1; i++) {
+                        tmp[i] = result[i];
+                    }
+                    tmp[tmp.length - 1] = product;
                 }
+                result = tmp;
             }
+        }
         return result;
     }
-
-    private boolean matches(Product product, String search) {
-        return product.toString().contains(search);
-    }
-
 }
 
 
