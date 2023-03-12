@@ -11,6 +11,28 @@ public class ProductManagerTest {
     Product smartphone2 = new Smartphone(22, "smartphone2", 2000, "brand2");
 
     @Test
+    public void shouldSearchWithEmptyRepository() {
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("smartphone1");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchNullResult() {
+        manager.addProduct(book1);
+        manager.addProduct(book2);
+        manager.addProduct(book3);
+        manager.addProduct(smartphone1);
+        manager.addProduct(smartphone2);
+
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("book5");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
     public void shouldSearchBook() {
         manager.addProduct(book1);
         manager.addProduct(book2);
