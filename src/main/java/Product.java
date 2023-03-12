@@ -8,6 +8,11 @@ public class Product {
         this.name = name;
         this.price = price;
     }
+
+    public boolean matches(String search) {
+        return getName().contains(search);
+    }
+
     public String getName() {
         return name;
     }

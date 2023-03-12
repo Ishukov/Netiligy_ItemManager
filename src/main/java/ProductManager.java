@@ -5,6 +5,7 @@ public class ProductManager {
         this.repository = repository;
     }
 
+
     public void addProduct(Product newProduct) {
         repository.addProduct(newProduct);
     }
@@ -13,7 +14,7 @@ public class ProductManager {
         Product[] result = new Product[0];
         int index = 0;
         for (Product product : repository.allProduct()) {
-            if (matches(product, text)) {
+            if (product.matches(text)) {
                 Product[] tmp = new Product[result.length + 1];
                 if (result.length == 0) {
                     tmp[index] = product;
@@ -27,10 +28,6 @@ public class ProductManager {
             }
         }
         return result;
-    }
-
-    private boolean matches(Product product, String search) {
-        return product.getName().contains(search);
     }
 }
 

@@ -5,4 +5,19 @@ public class Smartphone extends Product {
         super(id, name, price);
         this.brand = brand;
     }
+
+    @Override
+    public boolean matches(String search) {
+        if (super.matches(search)) {
+            return true;
+        }
+        if (getBrand().contains(search)) {
+            return true;
+        }
+        return false;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
 }
