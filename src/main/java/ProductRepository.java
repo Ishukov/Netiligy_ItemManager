@@ -5,12 +5,18 @@ public class ProductRepository {
     }
 
     public void addProduct(Product newProduct) {
-        Product[] tmp = new Product[products.length + 1];
-        for (int i = 0; i < products.length; i++) {
-            tmp[i] = products[i];
+        if (findById(newProduct.id) == null) {
+            Product[] tmp = new Product[products.length + 1];
+            for (int i = 0; i < products.length; i++) {
+                tmp[i] = products[i];
+            }
+            tmp[tmp.length - 1] = newProduct;
+            products = tmp;
+            return;
         }
-        tmp[tmp.length - 1] = newProduct;
-        products = tmp;
+        throw new AlreadyExistsException(
+                "Element with id: " + newProduct.id + " already exists"
+        );
     }
 
     public Product[] allProduct() {
@@ -18,16 +24,31 @@ public class ProductRepository {
         return all;
     }
 
-    public void removeById(int id) {
-        Product[] tmp = new Product[products.length - 1];
-        int index = 0;
+    public Product findById(int id) {
         for (Product product : products) {
-            if (product.id != id) {
-                tmp[index] = product;
-                index++;
+            if (product.id == id) {
+                return product;
             }
-            products = tmp;
         }
+        return null;
+    }
+
+    public void removeById(int id) {
+        if (findById(id) != null) {
+            Product[] tmp = new Product[products.length - 1];
+            int index = 0;
+            for (Product product : products) {
+                if (product.id != id) {
+                    tmp[index] = product;
+                    index++;
+                }
+                products = tmp;
+            }
+            return;
+        }
+        throw new NotFoundException(
+                "Element with id:" + id + "not found"
+        );
     }
 
     public Product[] getProducts() {
