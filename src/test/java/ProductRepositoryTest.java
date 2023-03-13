@@ -23,8 +23,8 @@ public class ProductRepositoryTest {
     @Test
     public void shouldAddProduct() {
         ProductRepository repository = new ProductRepository();
-        repository.addProduct(book2);
-        repository.addProduct(smartphone3);
+        repository.addProduct(book1);
+        repository.addProduct(smartphone1);
 
         Product[] expected = {book1, smartphone1};
         Product[] actual = repository.allProduct();
